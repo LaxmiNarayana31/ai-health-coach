@@ -26,14 +26,14 @@ app = FastAPI(
     version="1.0.0",
 )
 
-@app.on_event("startup")
-async def init_memori_tables():
-    memori.config.storage.build()
+# @app.on_event("startup")
+# async def init_memori_tables():
+#     memori.config.storage.build()
 
-@app.on_event("startup")
-async def create_tables():
-    async with engine.begin() as conn:
-        await conn.run_sync(Base.metadata.create_all)
+# @app.on_event("startup")
+# async def create_tables():
+#     async with engine.begin() as conn:
+#         await conn.run_sync(Base.metadata.create_all)
 
 # Add CORS middleware
 app.add_middleware(
