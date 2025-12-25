@@ -8,7 +8,7 @@ load_dotenv(verbose=True)
 
 DATABASE_URL = os.getenv("DATABASE_URL")
 
-SYNC_DATABASE_URL = DATABASE_URL.replace("+asyncpg", "").replace("+aiosqlite", "")
+SYNC_DATABASE_URL = DATABASE_URL.replace("+aiosqlite", "")
 
 engine_kwargs = {"pool_pre_ping": True}
 if "sqlite" in SYNC_DATABASE_URL:
