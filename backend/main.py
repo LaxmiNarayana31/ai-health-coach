@@ -1,8 +1,10 @@
 import warnings
 import uvicorn
+import os
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from dotenv import load_dotenv
 
 import app.models
 from app.core.memori import memori
@@ -13,6 +15,7 @@ from app.routes.history import router as history_router
 
 warnings.filterwarnings("ignore")
 
+load_dotenv(verbose=True)
 from app.utils.loader import check_env_vars
 check_env_vars()
 
@@ -47,13 +50,23 @@ app.include_router(chat_router)
 app.include_router(history_router)
 
 # Run the app
+# if __name__ == "__main__":
+#     port = int(os.getenv("PORT", 7000))
+#     uvicorn.run(
+#         "main:app",
+#         host="0.0.0.0",
+#         port=port,
+#         reload=True,
+#         log_level="info",
+#     )
+#     print("Server running on http://0.0.0.0:7000")
+
+
 if __name__ == "__main__":
+    port = int(os.getenv("PORT", 8000))
     uvicorn.run(
         "main:app",
         host="0.0.0.0",
-        port=7000,
-        reload=True,
-        log_level="info",
+        port=port,
+        reload=False,
     )
-    print("Server running on http://0.0.0.0:7000")
-
