@@ -26,14 +26,14 @@ app = FastAPI(
     version="1.0.0",
 )
 
-# @app.on_event("startup")
-# async def init_memori_tables():
-#     memori.config.storage.build()
+@app.on_event("startup")
+async def init_memori_tables():
+    memori.config.storage.build()
 
-# @app.on_event("startup")
-# async def create_tables():
-#     async with engine.begin() as conn:
-#         await conn.run_sync(Base.metadata.create_all)
+@app.on_event("startup")
+async def create_tables():
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.create_all)
 
 # Add CORS middleware
 app.add_middleware(
@@ -50,23 +50,23 @@ app.include_router(chat_router)
 app.include_router(history_router)
 
 # Run the app
-# if __name__ == "__main__":
-#     port = int(os.getenv("PORT", 7000))
-#     uvicorn.run(
-#         "main:app",
-#         host="0.0.0.0",
-#         port=port,
-#         reload=True,
-#         log_level="info",
-#     )
-#     print("Server running on http://0.0.0.0:7000")
-
-
 if __name__ == "__main__":
-    port = int(os.getenv("PORT", 8000))
+    port = int(os.getenv("PORT", 7000))
     uvicorn.run(
         "main:app",
         host="0.0.0.0",
         port=port,
-        reload=False,
+        reload=True,
+        log_level="info",
     )
+    print("Server running on http://0.0.0.0:7000")
+
+
+# if __name__ == "__main__":
+#     port = int(os.getenv("PORT", 8000))
+#     uvicorn.run(
+#         "main:app",
+#         host="0.0.0.0",
+#         port=port,
+#         reload=False,
+#     )
